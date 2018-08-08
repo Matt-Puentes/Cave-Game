@@ -22,8 +22,6 @@ function love.update(dt)
                 love.keyboard.isDown("down", "s"),
                 love.keyboard.isDown("."),
                 love.keyboard.isDown("/"))
-
-    love.timer.sleep(.1)
 end
 
 
@@ -31,6 +29,20 @@ end
 function love.draw()
     --draw grid
     drawGrid(g.getGameGrid())
+    love.graphics.setColor(1,0,0)
+    --[[x,y = w.getOldCenter()
+    dx,dy = w.getNewCenter()
+    drawX, drawY = w.gridToWorldCoordinates(x,y)
+    love.graphics.circle("fill", x, y,
+                            w.zoomRatio, w.zoomRatio)
+    love.graphics.setColor(1,1,1)
+    drawX, drawY = w.gridToWorldCoordinates(dx,dy)
+    love.graphics.circle("fill", dx, dy,
+                            w.zoomRatio, w.zoomRatio)
+                            love.graphics.setColor(1,0,1)]]--
+    love.graphics.circle("fill", 360,360,3,3)
+
+
 end
 
 function drawGrid(gameGrid)
@@ -40,10 +52,9 @@ function drawGrid(gameGrid)
             if gameGrid[x][y] ~= 0 then
                 love.graphics.setColor(0.2, 0, 0.2)
             end
-            local screenSize = w.zoomRatio
-            drawX, drawY, drawSize = w.gridToWorldCoordinates(x-1,y-1)
+            drawX, drawY = w.gridToWorldCoordinates(x-1,y-1)
             love.graphics.rectangle("fill", drawX, drawY,
-                                    drawSize, drawSize)
+                                    w.zoomRatio, w.zoomRatio)
         end
     end
 end
